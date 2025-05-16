@@ -3,10 +3,11 @@ package main
 import "fmt"
 
 func main() {
-	const lightspeed = 299792
-	distance := 56_000_000
+	const lightspeed = 28 // km/s
+	distance := 96_300_000
+	result := distance / lightspeed
 
-	fmt.Println(distance/lightspeed, "seconds")
-	distance = 401_000_000
-	fmt.Println(distance/lightspeed, "seconds")
+	fmt.Println(result, "seconds")
+	fmt.Println(result/86_400, "days")
+	fmt.Println(96_300_000/100_800/24, "days")
 }
