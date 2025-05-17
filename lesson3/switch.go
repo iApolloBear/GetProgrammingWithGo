@@ -5,13 +5,13 @@ import "fmt"
 func main() {
 	room := "lake"
 
-	switch {
-	case room == "cave":
+	switch room {
+	case "cave":
 		fmt.Println("You find yourself in a dimly lit cavern.")
-	case room == "lake":
+	case "lake":
 		fmt.Println("The ice seems solid enough.")
 		fallthrough
-	case room == "underwater":
+	case "underwater":
 		fmt.Println("The water is freezing cold.")
 	}
 }
