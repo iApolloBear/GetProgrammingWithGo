@@ -34,14 +34,14 @@ func drawTable(hdr1 string, hdr2 string, getRow getRowFn) {
 }
 
 func cToF(row int) (string, string) {
-	c := fmt.Sprintf(numberFormat+"ºC", celsius(row))
-	f := fmt.Sprintf(numberFormat+"ºF", celsius(row).fahrenheit())
+	c := fmt.Sprintf(numberFormat, celsius(row))
+	f := fmt.Sprintf(numberFormat, celsius(row).fahrenheit())
 	return c, f
 }
 
 func fToC(row int) (string, string) {
-	f := fmt.Sprintf(numberFormat+"ºF", fahrenheit(row))
-	c := fmt.Sprintf(numberFormat+"ºC", fahrenheit(row).celsius())
+	f := fmt.Sprintf(numberFormat, fahrenheit(row))
+	c := fmt.Sprintf(numberFormat, fahrenheit(row).celsius())
 	return f, c
 }
 
