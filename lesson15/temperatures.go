@@ -3,9 +3,9 @@ package main
 import "fmt"
 
 type (
-	celsius       float64
-	fahrenheit    float64
-	temperatureFn func()
+	celsius    float64
+	fahrenheit float64
+	getRowFn   func(row int) (string, string)
 )
 
 func (c celsius) fahrenheit() fahrenheit {
@@ -16,35 +16,36 @@ func (f fahrenheit) celsius() celsius {
 	return celsius((f - 32.0) * 5.0 / 9.0)
 }
 
-func drawTable(printTemperature temperatureFn) {
-	fmt.Println("=======================")
-	printTemperature()
-	fmt.Println("=======================")
+const (
+	rowFormat    = "| %8s | %8s |\n"
+	numberFormat = "%.1f"
+	line         = "======================="
+)
+
+func drawTable(hdr1 string, hdr2 string, getRow getRowFn) {
+	fmt.Println(line)
+	fmt.Printf(rowFormat, hdr1, hdr2)
+	fmt.Println(line)
+	for index := -40; index <= 100; index += 5 {
+		row1, row2 := getRow(index)
+		fmt.Printf(rowFormat, row1, row2)
+	}
+	fmt.Println(line)
 }
 
-func printCelsius() {
-	fmt.Printf("| %-8v | %-8v |\n", "ºC", "ºF")
-	fmt.Println("=======================")
-	for index := -5; index <= 100; index += 5 {
-		c := fmt.Sprintf("%vºC", celsius(index))
-		f := fmt.Sprintf("%vºF", celsius(index).fahrenheit())
-		fmt.Printf("| %-8v | %-8v |\n", c, f)
-	}
+func cToF(row int) (string, string) {
+	c := fmt.Sprintf(numberFormat+"ºC", celsius(row))
+	f := fmt.Sprintf(numberFormat+"ºF", celsius(row).fahrenheit())
+	return c, f
 }
 
-func printFahrenheit() {
-	fmt.Printf("| %-8v | %-8v |\n", "ºF", "ºC")
-	fmt.Println("=======================")
-	for index := -5; index <= 100; index += 5 {
-		c := fmt.Sprintf("%vºF", fahrenheit(index))
-		f := fmt.Sprintf("%.2fºC", fahrenheit(index).celsius())
-		fmt.Printf("| %-8v | %-8v |\n", c, f)
-	}
+func fToC(row int) (string, string) {
+	f := fmt.Sprintf(numberFormat+"ºF", fahrenheit(row))
+	c := fmt.Sprintf(numberFormat+"ºC", fahrenheit(row).celsius())
+	return f, c
 }
 
 func main() {
-	cel := printCelsius
-	far := printFahrenheit
-	drawTable(cel)
-	drawTable(far)
+	drawTable("ºC", "ºF", cToF)
+	drawTable("ºF", "ºC", fToC)
 }
