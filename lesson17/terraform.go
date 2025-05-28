@@ -7,14 +7,15 @@ import (
 
 type Planets []string
 
-func (p Planets) terraform() {
-	for index, planet := range p {
-		p[index] = "New " + planet
+func (planets Planets) terraform() {
+	for index := range planets {
+		planets[index] = "New " + planets[index]
 	}
 }
 
 func main() {
-	planets := []string{"Mars", "Uranus", "Neptune"}
-	Planets(planets).terraform()
+	planets := []string{"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"}
+	Planets(planets[3:4]).terraform()
+	Planets(planets[6:]).terraform()
 	fmt.Println(strings.Join(planets, ", "))
 }
